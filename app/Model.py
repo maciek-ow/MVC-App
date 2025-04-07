@@ -1,13 +1,17 @@
 #Model
 from flask_login import UserMixin
-from app import db, login
-#USER MODEL#
+from Controler import db #import db variable from controler
+from View import login #import login variable from View
 
 @login.user_loader
 def load_user(id):
-    return User.query.get(int(id))
+    return User.query.get(int(id)) #returns user id to use in any place in the code
 
-class User(UserMixin, db.Model): #User
+#User model
+class User(UserMixin, db.Model):
     id = db.Column(db.Integer, primary_key=True)
-    user_name = db.Column(db.String(64), index=True, unique=True)
-    password = db.Column(db.String(128))
+    user = db.Column(db.String(45), index=True, unique=True)
+    password = db.Column(db.String(45))
+
+    def get_id(self):
+        return (self.id)

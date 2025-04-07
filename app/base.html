@@ -4,11 +4,38 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
-    {% block head %}{% end block %}
+    <link rel="stylesheet" href="main.css">
+    {% block head %}{% end block %} <!-- flask head block -->
 </head>
 <body>
-    {% if current_user.is_anonymous %}
-    {% else %}
-    {% block body %}{% end block %}
+     <!-- Header -->
+     <header>
+        <h1>Welcome to My Website</h1>
+    </header>
+
+    <!-- Navigation -->
+    <nav>
+        <ul>
+            <a class ="navbar-brand" href="{{ url_for('index')}}"></a>
+            <li><a href="#">Home</a></li>
+            <li><a href="#">About</a></li>
+            <li><a href="#">Services</a></li>
+            <li><a href="#">Contact</a></li>
+        </ul>
+    </nav>
+
+    <!-- Main Content -->
+    <div class="container">
+        <h2>Main Content Area</h2>
+        <p>This is a simple website template with external CSS.</p>
+    </div>
+
+    <!-- Footer -->
+    <footer>
+        <p>&copy; 2023 My Simple Website. All rights reserved.</p>
+    </footer>
+    {% if current_user.is_anonymous %} <!-- flask if statment for not logged user -->
+    {% else %} <!-- flask else statment -->
+    {% block body %}{% end block %} <!-- flask body block -->
 </body>
 </html>

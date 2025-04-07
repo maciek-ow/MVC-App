@@ -1,11 +1,15 @@
-#Controler
+#Controler (it handles connection to DB )
 from flask import Flask
 from flask_sqlalchemy import SQLAlchemy
+from flask_login import LoginManager
 
-app = Flask(__name__)
+App = Flask(__name__) #creates one instance of FLask class
 
-# creating 
-db = SQLAlchemy(app)
+# Creating DB
+db = SQLAlchemy(App)
+
+login = LoginManager(App)
+App.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql://admin:admin@localhost/CRUD-app-DB'
 
 if __name__ == "__main__":
-    app.run(debug=True)
+    App.run(debug=True)

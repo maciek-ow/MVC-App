@@ -1,1 +1,52 @@
-/* main css spreadsheat */
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    line-height: 1.6;
+    background-color: #f4f4f4;
+    color: #333;
+}
+
+header {
+    background: #35424a;
+    color: #fff;
+    padding: 20px 0;
+    text-align: center;
+}
+
+nav {
+    background: #e8491d;
+    padding: 10px;
+}
+
+nav ul {
+    list-style: none;
+    padding: 0;
+    text-align: center;
+}
+
+nav ul li {
+    display: inline;
+    margin: 0 15px;
+}
+
+nav ul li a {
+    color: #fff;
+    text-decoration: none;
+}
+
+.container {
+    width: 80%;
+    margin: auto;
+    padding: 20px;
+    min-height: calc(100vh - 200px); /* Adjust based on header/footer height */
+}
+
+footer {
+    background: #35424a;
+    color: #fff;
+    text-align: center;
+    padding: 10px 0;
+    position: relative;
+    margin-top: 20px;
+}
