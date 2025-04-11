@@ -1,11 +1,11 @@
 #View
 from flask_login import LoginManager, login_user, logout_user, login_required
-from Controler import App #imports app variable from controller
+from Controler import login #imports app variable from controller
 
- #
+
+
 
 login_manager = LoginManager()
-login_manager.init.app(App)
 
 #this method is used to as part of the flask_login code.
 #@login_manager.login.user_loader

@@ -1,11 +1,6 @@
 #Model
 from flask_login import UserMixin
 from Controler import db #import db variable from controler
-from View import login #import login variable from View
-
-@login.user_loader
-def load_user(id):
-    return User.query.get(int(id)) #returns user id to use in any place in the code
 
 #User model
 class User(UserMixin, db.Model):
