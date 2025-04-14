@@ -1,26 +1,26 @@
 #Controler (it handles connection to DB )
-from flask import Flask, render_template, url_for, redirect
+from flask import Flask
 from flask_sqlalchemy import SQLAlchemy
 from flask_login import LoginManager
 
 
-App = Flask(__name__) #creates one instance of FLask class
+db = SQLAlchemy()
+login_manager = LoginManager()
+def create_app():
 
- #Creating DB
-App.config["SQLALCHEMY_DATABASE_URI"] = "postgresql://admin:admin@localhost:5432/CRUD-app-DB"
+    App = Flask(__name__) #creates one instance of FLask class
 
-# Initialazie extensions
-db = SQLAlchemy(App)
-login = LoginManager(App)
+    #Creating DB
+    App.config["SQLALCHEMY_DATABASE_URI"] = "postgresql://admin:admin@localhost:5432/CRUD-app-DB"
 
-@login.user_loader
-def load_user(id):
-    from Model import User
-    return User.query.get(int(id)) #returns user id to use in any place in the code
+    App.secret_key = "SECRET"
 
-@App.route("/")
-def index():
-    return render_template('index.html')
+    # Initialazie extensions
+    db.init_app(App)
+    login_manager.init_app(App)
+    login_manager.login_view = "login"
 
-if __name__ == "__main__":
-    App.run(debug=True)
+    from View import init_routes
+    init_routes(App)
+    
+    return App
