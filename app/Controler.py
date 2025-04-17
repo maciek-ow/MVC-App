@@ -11,7 +11,7 @@ def create_app():
     App = Flask(__name__) #creates one instance of FLask class
 
     #Creating DB
-    App.config["SQLALCHEMY_DATABASE_URI"] = "postgresql://admin:admin@localhost:5432/CRUD-app-DB"
+    App.config["SQLALCHEMY_DATABASE_URI"] = "postgresql://admin:admin@localhost:5432/crud_app"
 
     App.secret_key = "SECRET"
 

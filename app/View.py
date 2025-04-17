@@ -32,9 +32,9 @@ def init_routes(App):
         form_password= form.password.data
 
         if form.validate_on_submit():
-            user = User.query.filter_by(user=form_username).first()
+            user = User.query.filter_by(user_name = form_username).first()
             password = user.password
-            if user is None or password != form_password:
+            if user is None or user.password != form_password:
                 flash('Invalid username or password')
                 return redirect(url_for('login'))
             login_user(user)
