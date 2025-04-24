@@ -23,7 +23,7 @@
             <li><a href="#">About</a></li>
             {% else %}
             <li class="nav-item"><a class="nav-link {%block nav_home_login %}{% endblock %}" href="{{ url_for('index')}}">Home</a></li>
-            <li><a href="#">Services</a></li>
+            <li><a class="nav-link {%block nav_task_master %}{% endblock %}" href="{{ url_for('TaskMaster')}}">TaskMaster</a></li>
             <li><a href="#">About</a></li>
             <li class="nav-item"><a class="nav-link {%block nav_logout %}{% endblock %}" href="{{ url_for('logout') }}">Logout</a></li>
             {% endif %}
@@ -35,12 +35,12 @@
     <div class="container">
         <h2>Main Content Area</h2>
         <p>This is a simple website template with external CSS.</p>
+        {% block body %}{% endblock %} <!-- flask body block -->
     </div>
 
     <!-- Footer -->
     <footer>
         <p>&copy; 2023 My Simple Website. All rights reserved.</p>
     </footer>
-    {% block body %}{% endblock %} <!-- flask body block -->
 </body>
 </html>

@@ -50,3 +50,86 @@ footer {
     position: relative;
     margin-top: 20px;
 }
+
+.taskmaster-container {
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 20px;
+}
+
+.task-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 20px 0;
+    box-shadow: var(--shadow-sm); /* Use your existing shadow variable */
+}
+
+.task-table th, .task-table td {
+    padding: 12px 15px;
+    text-align: left;
+    border-bottom: 1px solid var(--border-color); /* Use your existing color variable */
+}
+
+.task-table th {
+    background-color: var(--primary); /* Use your primary color */
+    color: rgb(8, 8, 8);
+    font-weight: bold;
+}
+
+.task-table tr:nth-child(even) {
+    background-color: var(--bg-alt); /* Use your alternate background */
+}
+
+.task-table tr:hover {
+    background-color: var(--hover-bg); /* Use your hover background */
+}
+
+.status-pending {
+    color: var(--warning); /* Use your warning color */
+    font-weight: bold;
+}
+
+.status-completed {
+    color: var(--success); /* Use your success color */
+    font-weight: bold;
+}
+
+.task-create-form {
+    max-width: 500px;
+    margin: 20px auto;
+    padding: 20px;
+    background: #ffffff;
+    border-radius: 8px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+}
+
+.form-input {
+    width: 60%;
+    padding: 12px 15px;
+    border: 1px solid #e0e0e0;
+    border-radius: 4px;
+    font-size: 16px;
+    outline: none;
+    transition: border-color 0.3s ease;
+}
+
+.form-input:focus {
+    border-color: #e2ea00;
+    box-shadow: 0 0 0 2px #e2ea00;
+}
+
+.submit-task-btn {
+    width: 25%;
+    padding: 12px 15px;
+    margin-left: 5%;
+    background-color: #e19201;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    font-size: 16px;
+    transition: background-color 0.3s ease;
+}
+
+.submit-task-btn:hover {
+    background-color: #866a07;
+}

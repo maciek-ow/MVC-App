@@ -9,5 +9,15 @@ class User(UserMixin, db.Model):
     user_name = db.Column(db.String(45), index=True, unique=True)
     password = db.Column(db.String(45))
 
+
     def get_id(self):
         return (self.id)
+    
+class TaskMaster(db.Model):
+    __tablename__ = "task_master"
+    id = db.Column(db.Integer, primary_key=True)
+    name = db.Column(db.String(45))
+    assignee = db.Column(db.String(45))
+    #due_date = db.Column
+    
+    

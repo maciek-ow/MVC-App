@@ -2,12 +2,13 @@
 
 {% block head %} <!-- flask head block from base.html -->
 
-<h2>Login Page</h2>
+
 
 {% endblock %} <!-- end of block -->
 
 {% block body %} <!-- flask body block from base.html -->
 
+<h2>Login Page</h2>
 {% with messages = get_flashed_messages()%}
     {% if messages %}
         {% for message in messages %}

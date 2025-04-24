@@ -1,0 +1,40 @@
+{% extends 'base.html' %} <!-- its telling from where to grab template -->
+
+{% block head %} <!-- flask head block from base.html -->
+
+
+{% endblock %} <!-- end of block -->
+
+{% block body %} <!-- flask body block from base.html -->
+<div class = "task-create-form">
+    <form method="post" action="/add">
+        <input class="form-input" type="text" name="task" placeholder="create your task" required>
+        <button class="submit-task-btn" type="submit">Create</button>
+    </form>
+</div>
+<div class="taskmaster-container">
+    <h1>TaskMaster Records</h1>
+    <table class="task-table">
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Task Name</th>
+                <th>Assignee</th>
+                <th>Due Date</th>
+                <th>Status</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for task in tasks %}
+            <tr>
+                <td>{{ task.id }}</td>
+                <td>{{ task.name }}</td>
+                <td>{{ task.assignee }}</td>
+                <td>{{ task.due_date }}</td>
+                <td class="status-{{ task.status }}">{{ task.status|capitalize }}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+{% endblock %} <!-- end of block -->
