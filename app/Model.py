@@ -5,7 +5,7 @@ from Controler import db #import db variable from controler
 #User model
 class User(UserMixin, db.Model):
     __tablename__ = "user"
-    id = db.Column(db.Integer, primary_key=True)
+    user_id = db.Column(db.Integer, primary_key=True, autoincrement=True)
     user_name = db.Column(db.String(45), index=True, unique=True)
     password = db.Column(db.String(45))
 
@@ -13,11 +13,11 @@ class User(UserMixin, db.Model):
     def get_id(self):
         return (self.id)
     
-class TaskMaster(db.Model):
-    __tablename__ = "task_master"
-    id = db.Column(db.Integer, primary_key=True)
-    name = db.Column(db.String(45))
-    assignee = db.Column(db.String(45))
+class Tasks(db.Model):
+    __tablename__ = "Tasks"
+    task_id = db.Column(db.Integer, primary_key=True, autoincrement=True)
+    task_name = db.Column(db.String(45))
+    task_assignee = db.Column(db.String(45))
     #due_date = db.Column
     
     

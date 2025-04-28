@@ -5,17 +5,19 @@ from wtforms.validators import DataRequired
 from Controler import db, login_manager
 from flask_login import login_user, logout_user, login_required, current_user
 from flask import render_template, redirect, url_for, request, flash, session
-from Model import User
+from Model import User, Tasks
+from functions import *
 
 class LoginForm(FlaskForm):
     username = StringField('Username', validators=[DataRequired()])
     password = PasswordField('Password', validators=[DataRequired()])
     submit = SubmitField('Sign in')
 
-class TSForm(FlaskForm):
-    task = StringField('')
+class TSform(FlaskForm):
+    task_name = StringField('Task name', validators=[DataRequired()])
+    task_asignee = PasswordField('Task assignee', validators=[DataRequired()])
+    submit = SubmitField('Submit task')
 
-tasks = []
 ### LOGIN LOGOUT STUFF ###
 
 def init_routes(App):
@@ -48,15 +50,18 @@ def init_routes(App):
     
     @App.route('/TaskMaster', methods=['GET','POST'])
     @login_required
-    def TaskMaster():
-        return render_template('TaskMaster.html', title='taskmaster')
+    def tasks():
+        form = TSform()
+        if request.method == 'POST':
+            task_name = request.form.get('task_name')
+            task_assignee = request.form.get('task_assignee')
+            tasks = Tasks(task_name=task_name, task_assignee=task_assignee)
+            db.session.add(tasks)
+            db.session.commit()
+            return redirect(url_for('TaskMaster'))
+        #tasks = get_tasks(id)
+        return render_template('TaskMaster.html', form=form, tasks=tasks, title='taskmaster')
     
-    @App.route('/add', methods=['POST','GET'])
-    def create_new_task():
-        task = request.form.get('task')
-        #db.session.add('task')
-        return redirect(url_for('TaskMaster'))
-
     @App.route("/logout", endpoint='logout')
     @login_required
     def logout():
@@ -66,3 +71,7 @@ def init_routes(App):
     @App.route("/")
     def index():
         return render_template('index.html')
+
+    @login_manager.unauthorized_handler
+    def unauthorized():
+        return redirect(url_for('login'))
