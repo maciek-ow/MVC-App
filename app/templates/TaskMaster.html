@@ -7,9 +7,22 @@
 
 {% block body %} <!-- flask body block from base.html -->
 <div class = "task-create-form">
-    <form method="post" action="/add">
-        <input class="form-input" type="text" name="task" placeholder="create your task" required>
-        <button class="submit-task-btn" type="submit">Create</button>
+    <h1>Tasks
+        <button type="submit" class="btn-task-submit"></button>
+    </h1>
+    <form method="POST" action="{{ url_for('tasks') }}" novalidate>
+    {{ form.hidden_tag() }}
+        <p>
+            {{ form.task_name.label }} <br>
+            {{ form.task_name }}
+        </p>
+        <p>
+            {{ form.task_assignee.label }} <br>
+            {{ form.task_assignee }}
+        </p>
+        <p>
+            {{ form.submit() }}
+        </p>
     </form>
 </div>
 <div class="taskmaster-container">
@@ -20,18 +33,15 @@
                 <th>ID</th>
                 <th>Task Name</th>
                 <th>Assignee</th>
-                <th>Due Date</th>
-                <th>Status</th>
             </tr>
         </thead>
         <tbody>
             {% for task in tasks %}
             <tr>
-                <td>{{ task.id }}</td>
-                <td>{{ task.name }}</td>
-                <td>{{ task.assignee }}</td>
-                <td>{{ task.due_date }}</td>
-                <td class="status-{{ task.status }}">{{ task.status|capitalize }}</td>
+                <td>{{ task.task_id }}</td>
+                <td>{{ task.task_name }}</td>
+                <td>{{ task.task_assignee }}</td>
+                <!--<td class="status-{{ task.status }}">{{ task.status|capitalize }}</td> -->
             </tr>
             {% endfor %}
         </tbody>

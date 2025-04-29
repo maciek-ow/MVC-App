@@ -15,7 +15,7 @@ class LoginForm(FlaskForm):
 
 class TSform(FlaskForm):
     task_name = StringField('Task name', validators=[DataRequired()])
-    task_asignee = PasswordField('Task assignee', validators=[DataRequired()])
+    task_assignee = PasswordField('Task assignee', validators=[DataRequired()])
     submit = SubmitField('Submit task')
 
 ### LOGIN LOGOUT STUFF ###
@@ -58,8 +58,8 @@ def init_routes(App):
             tasks = Tasks(task_name=task_name, task_assignee=task_assignee)
             db.session.add(tasks)
             db.session.commit()
-            return redirect(url_for('TaskMaster'))
-        #tasks = get_tasks(id)
+            return redirect(url_for('tasks'))
+        tasks = get_tasks()
         return render_template('TaskMaster.html', form=form, tasks=tasks, title='taskmaster')
     
     @App.route("/logout", endpoint='logout')

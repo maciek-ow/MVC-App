@@ -5,7 +5,7 @@ from Controler import db #import db variable from controler
 #User model
 class User(UserMixin, db.Model):
     __tablename__ = "user"
-    user_id = db.Column(db.Integer, primary_key=True, autoincrement=True)
+    id = db.Column(db.Integer, primary_key=True, autoincrement=True)
     user_name = db.Column(db.String(45), index=True, unique=True)
     password = db.Column(db.String(45))
 
