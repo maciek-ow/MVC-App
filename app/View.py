@@ -13,9 +13,9 @@ class LoginForm(FlaskForm):
     password = PasswordField('Password', validators=[DataRequired()])
     submit = SubmitField('Sign in')
 
-class TSform(FlaskForm):
+class TMform(FlaskForm):
     task_name = StringField('Task name', validators=[DataRequired()])
-    task_asignee = PasswordField('Task assignee', validators=[DataRequired()])
+    task_assignee = StringField('Task assignee', validators=[DataRequired()])
     submit = SubmitField('Submit task')
 
 ### LOGIN LOGOUT STUFF ###
@@ -51,17 +51,18 @@ def init_routes(App):
     @App.route('/TaskMaster', methods=['GET','POST'])
     @login_required
     def tasks():
-        form = TSform()
-        if request.method == 'POST':
-            task_name = request.form.get('task_name')
-            task_assignee = request.form.get('task_assignee')
-            tasks = Tasks(task_name=task_name, task_assignee=task_assignee)
-            db.session.add(tasks)
+        form = TMform()
+        if form.validate_on_submit():
+            task = Tasks(
+            task_name=form.task_name.data,
+            task_assignee=form.task_assignee.data
+            )
+            db.session.add(task)
             db.session.commit()
-            return redirect(url_for('TaskMaster'))
-        #tasks = get_tasks(id)
-        return render_template('TaskMaster.html', form=form, tasks=tasks, title='taskmaster')
-    
+            return redirect(url_for('tasks'))
+        tasks = get_tasks()
+        return render_template('TaskMaster.html',form=form, tasks=tasks, title='taskmaster')
+     
     @App.route("/logout", endpoint='logout')
     @login_required
     def logout():
