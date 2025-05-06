@@ -1,4 +1,4 @@
 from Model import Tasks
 
 def get_tasks():
-    return Tasks.query.all() 
+    return Tasks.query.order_by(Tasks.task_id.asc()).all() 

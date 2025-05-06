@@ -8,31 +8,35 @@
 {% block body %} <!-- flask body block from base.html -->
 <div class = "task-create-form">
     <h1>Tasks
-        <button type="submit" class="btn-task-submit"></button>
     </h1>
     <form method="POST" action="" novalidate>
     {{ form.hidden_tag() }}
-        <p>
+        <p class="label">
             {{ form.task_name.label }} <br>
-            {{ form.task_name }}
+             {{ form.task_name }}
+        </p>
+        <p class="label">
+            {{ form.task_due_date.label }} <br>
+            {{form.task_due_date}}
         </p>
         <p>
-            {{ form.task_assignee.label }} <br>
-            {{ form.task_assignee }}
-        </p>
-        <p>
-            {{ form.submit() }}
+            <button class="button-submit" action='{{ form.submit() }}'>submit task</button>
         </p>
     </form>
 </div>
 <div class="taskmaster-container">
     <h1>TaskMaster Records</h1>
+    <div class="user-greeting">
+            Logged in as: <strong>{{ current_user.user_name }}</strong>
+    </div>
     <table class="task-table">
         <thead>
             <tr>
                 <th>ID</th>
                 <th>Task Name</th>
                 <th>Assignee</th>
+                <th>Due Date</th>
+                <th>Status</th>
             </tr>
         </thead>
         <tbody>
@@ -41,14 +45,13 @@
                 <td>{{ task.task_id }}</td>
                 <td>{{ task.task_name }}</td>
                 <td>{{ task.task_assignee }}</td>
-                <!--<td class="status-{{ task.status }}">{{ task.status|capitalize }}</td> -->
-                <td>{{ task.task_id }}</td>
-                <td>{{ task.task_name }}</td>
-                <td>{{ task.task_assignee }}</td>
-                <!--<td class="status-{{ task.status }}">{{ task.status|capitalize }}</td> -->
+                <td> {{ task.task_due_date }}</td>
+                <td>
+                    {{ task.status }}
+                </td>
             </tr>
             {% endfor %}
         </tbody>
     </table>
 </div>
-{% endblock %} <!-- end of block -->
+{% endblock %}

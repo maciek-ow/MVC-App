@@ -1,12 +1,13 @@
 #View
 from flask_wtf import FlaskForm
-from wtforms import StringField, PasswordField, SubmitField
+from wtforms import StringField, PasswordField, SubmitField, DateField, SelectField
 from wtforms.validators import DataRequired
 from Controler import db, login_manager
 from flask_login import login_user, logout_user, login_required, current_user
 from flask import render_template, redirect, url_for, request, flash, session
-from Model import User, Tasks
+from Model import *
 from functions import *
+from datetime import date
 
 class LoginForm(FlaskForm):
     username = StringField('Username', validators=[DataRequired()])
@@ -15,9 +16,14 @@ class LoginForm(FlaskForm):
 
 class TMform(FlaskForm):
     task_name = StringField('Task name', validators=[DataRequired()])
-    task_assignee = StringField('Task assignee', validators=[DataRequired()])
+    task_due_date = DateField('Due Date', format='%Y-%m-%d', default=date.today)
     submit = SubmitField('Submit task')
-
+    status = SelectField('Status', choices=[
+        (TaskStatus.TODO.value, 'To Do'),
+        (TaskStatus.IN_PROGRESS.value, 'In Progress'),
+        (TaskStatus.DONE.value, 'Done')
+    ], default=TaskStatus.TODO.value)
+    submit = SubmitField('Submit Task')
 ### LOGIN LOGOUT STUFF ###
 
 def init_routes(App):
@@ -55,7 +61,10 @@ def init_routes(App):
         if form.validate_on_submit():
             task = Tasks(
             task_name=form.task_name.data,
-            task_assignee=form.task_assignee.data
+            task_assignee=current_user.user_name,
+            task_due_date=form.task_due_date.data,
+            user_id=current_user.id,
+            status=form.status.data
             )
             db.session.add(task)
             db.session.commit()
