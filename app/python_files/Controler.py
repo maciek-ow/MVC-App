@@ -3,7 +3,7 @@ from flask import Flask
 from flask_sqlalchemy import SQLAlchemy
 from flask_login import LoginManager
 from flask_migrate import Migrate
-import psycopg
+import psycopg2
 
 App = Flask(__name__) #creates one instance of FLask class
 db = SQLAlchemy()
@@ -27,5 +27,5 @@ def create_app():
     return App
 
 def connect():
-    connection = psycopg.connect("dbname='crud_app' user='admin' host='localhost' password='admin'")
+    connection = psycopg2.connect("dbname='crud_app' user='admin' host='localhost' password='admin'")
     return connection
