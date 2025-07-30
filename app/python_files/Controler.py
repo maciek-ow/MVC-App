@@ -5,7 +5,9 @@ from flask_login import LoginManager
 from flask_migrate import Migrate
 import psycopg2
 import os
+from dotenv import load_dotenv
 
+load_dotenv()
 App = Flask(__name__) #creates one instance of FLask class
 db = SQLAlchemy()
 login_manager = LoginManager()
@@ -18,8 +20,7 @@ def create_app():
     
     #Creating DB
     App.config["SQLALCHEMY_DATABASE_URI"] = os.getenv(
-        "DATABASE_URL", 
-        "postgresql://admin:admin@db:5432/crud_app"  # Changed from localhost to 'db'
+        "DATABASE_URL"
     )
     App.secret_key = os.getenv("SECRET_KEY", "SECRET")
 
@@ -32,12 +33,3 @@ def create_app():
     init_routes(App)
     
     return App
-
-def connect():
-    connection = psycopg2.connect(
-    dbname='crud_app',
-    user='admin',
-    host='db', 
-    password='admin'
-    )
-    return connection
