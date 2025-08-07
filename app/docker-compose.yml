@@ -1,12 +1,9 @@
 services:
   web:
-    image: task_master:0.1.2
+    image: task_master:0.1.3
     ports:
       - "5000:5000"
-    environment:
-      - FLASK_APP=app.py
-      - FLASK_ENV=development
-      - DATABASE_URL=postgresql://admin:admin@db:5432/crud_app
+    env_file: "webapp.env"
     volumes:
       - .:/app
       - ./templates:/app/templates 
